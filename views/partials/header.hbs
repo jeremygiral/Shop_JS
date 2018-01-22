@@ -8,22 +8,35 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Brand</a>
+      <a class="navbar-brand" href="/">Shop JS</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
 
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>  Shopping Cart</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle" aria-hidden="true"></i>  Compte Utilisateur <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Compte</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Déconnexion</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+    <ul class="nav navbar-nav navbar-right">
+      <li>
+        <a href="/shopping-cart/">
+          {{# if session.cart.totalQty}}
+          <span class="badge pull-right">   {{session.cart.totalQty}}</span>
+          {{else}}
+          <span class="badge pull-right">0</span>
+          {{/if}}
+          <i class="fa fa-shopping-cart" aria-hidden="true"></i>  Shopping Cart   :</a> </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle" aria-hidden="true"></i>  Compte Utilisateur <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              {{# if login}}
+              <li><a href="/user/profile">Compte</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/user/logout">Déconnexion</a></li>
+              {{ else }}
+              <li><a href="/user/signup">S'enregistrer</a></li>
+              <li><a href="/user/signin">Se connecter</a></li>
+              {{/ if}}
+
+            </ul>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>

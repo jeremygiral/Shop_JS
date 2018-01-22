@@ -1,40 +1,84 @@
+//server web + router
 var express = require('express');
+// permet de récupere le chemin des fichiers
 var path = require('path');
+// permet de mettre une icone dans l'onglet
 var favicon = require('serve-favicon');
+
 var logger = require('morgan');
+// permet l'utilisation des cookies
 var cookieParser = require('cookie-parser');
+// permet de parser
 var bodyParser = require('body-parser');
+//permet l'utilisation du format hbs
 var expressHbs = require('express-handlebars');
-var index = require('./routes/index');
+// orm de mongodb
 var mongoose = require('mongoose');
+//permet de gérer l'authentif
 var passport = require('passport');
+//affiche des messages type alert
 var flash=require('connect-flash');
+//permet de gérer les tokens
 var session = require('express-session');
-//var bootstrap= require('bootstrap');
+//permet de valider les champ spéciaux : email, password ...
+var validator = require('express-validator');
+//pour stocker les tokens et session correctement en base mongo
+var MongoStore=require('connect-mongo')(session);
+//on charge les fichiers de routes
+var index = require('./routes/index');
+var userRoutes=require('./routes/user');
 
+//on défini notre server
+var app = express();
 
+//on se connecte à notre base
 mongoose.connect('mongodb://localhost:27017/shopjs');
+
+//on charge notre fichier passport pour l'authentif
 require('./config/passport');
 
-
-var app = express();
-mongoose.connect('')
-// view engine setup
+//on défini l'utilisation du format hbs
 app.engine('.hbs',expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
 app.set('view engine', '.hbs');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+//utilisation d'une icone
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
+
+//on défini notre body parser au format json
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+//on déféni l'usage de validator (email, password)
+app.use(validator());
 app.use(cookieParser());
-app.use(session({secret: 'mysupersecret', resave: false,saveUnitialized: false}));
+//on défini notre mot de passe pour la création des tokens, et déactive le ré enregistrement et la sauvergade des token qui n'ont pas était initialisé
+app.use(session({
+  secret: 'mysupersecret',
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoStore({mongooseConnection: mongoose.connection}),
+  //cookie:{maxAge: 180 * 60 * 1000}
+  cookie:{maxAge: 180 * 60 * 1000} //180 minutes * 60 seconde * 1000 millisecondes
+}));
+//on peut utilisé flash
 app.use(flash());
+//on crée un token
 app.use(passport.initialize());
 app.use(passport.session());
+//on met à disposition le contenu du dossier public)
 app.use(express.static(path.join(__dirname, 'public')));
 
+//on défini la variable locals avec un booléen d'authentif et le token de session
+app.use(function(req,res,next){
+  res.locals.login = req.isAuthenticated();
+  res.locals.session=req.session;
+  next();
+});
+
+//on défini l'utilisation des routes
+//on place les routes les plus "précises" en premier
+app.use('/user', userRoutes);
 app.use('/', index);
 //app.use('/users', users);
 

@@ -8,19 +8,19 @@ var products=[
     imagePath:'https://upload.wikimedia.org/wikipedia/en/5/5e/Gothiccover.png',
     title:'Gothic Video Game',
     description: 'A fantastic game !',
-    price: 25
+    priceHT: 25
   }),
   new Product({
     imagePath:'https://upload.wikimedia.org/wikipedia/en/4/42/Risen.jpg',
     title:'Risen Video Game',
     description: 'A fantastic new game !',
-    price: 30
+    priceHT: 30
   }),
   new Product({
     imagePath:'https://upload.wikimedia.org/wikipedia/en/f/fd/Risen2.jpg',
     title:'Risen 2 Video Game',
     description: 'Another fantastic game !',
-    price: 35
+    priceHT: 35
   })
 ];
 
