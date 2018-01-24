@@ -4,7 +4,7 @@ Pour lancer ce projet vous aurez besoin :
 
 - De copier en local le contenant de ce repository.
 - Installer et lancer une instance de MongoDB
-- Lancer le fichier de création de produits et utilisateurs initiaux afin que vous ayez des exemples avec la commande node ./seed/product-seeder.js exécuter à la racine du projet ./shopping-cart
+- Lancer le fichier de création de produits et utilisateurs initiaux afin que vous ayez des exemples avec la commande node ./seed/product-seeder.js exécuté à la racine du projet ./shopping-cart
 - Installer les différents modules avec la commande npm install
 - Lancer le serveur via la commande npm start
 - Se rendre sur l'URL http://localhost:3000
