@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var schema=new Schema({
   user: {type: Schema.Types.ObjectId,ref: 'User'},
-  cart: {type: Object, require: true}
+  panier: {type: Object, require: true},
+  isValable: {type: Boolean, default: true}
 });
 
 module.exports=mongoose.model('Order',schema);

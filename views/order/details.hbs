@@ -1,56 +1,73 @@
+{{# if order.panier}}
 <div class="row">
-  <div class="col-md-4 col-md-offset-4">
-    <h1>Confirmation de commande</h1>
+
+    <h1 align="center">Confirmation de commande</h1>
     {{#if hasErrors}}
-    <div class="alert alert-danger">
+    <div class="alert alert-danger" >
       {{# each messages}}
-        <p>{{this}}</p>
+      <p>{{this}}</p>
       {{/each}}
     </div>
     {{/if}}
-    <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
-      <ul class="list-group">
-        {{#each order.cart}}
-        <li class="list-group-item">
-          <img src="{{this.item.imagePath}}" alt="..." class="img-responsive">
-          <span class="badge">{{this.qty}}</span>
-          <strong> {{this.item.title}}</strong>
-          <span class="label label-success">{{this.price}} €</span>
-          <div class="btn-group">
-            <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown">Action<span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li><a href="#">Enlever 1 unité du panier</a></li>
-              <li><a href="#">Enlever tout du panier</a></li>
-            </ul>
-          </div>
-        </li>
-        {{/each}}
-      </ul>
+    <div class="row">
+
+      <h3 align="center">Il y a {{totalQty}} éléments dans votre panier pour un prix total de : {{totalPrice}} €</h3>
+
     </div>
-    <form action="/order/order" method="post">
-      <div class="form-group">
-        <label for="email">E-Mail  </label>
-        <input type="text" id="email" name="email" class="form-control" value="{{order.user.email}}">
+    <div class="row">
+    {{# each order.panier}}
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <img src="{{this.item.imagePath}}" alt="..." class="img-responsive">
+          <div class="caption">
+            <h3>{{this.item.title}}</h3>
+            <p class="description">{{this.item.description}}</p>
+            <div class="clearfix">
+              <div class="price pull-left">{{this.price}} €</div>
+              <span class="badge pull-right">{{this.qty}}</span>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown">Action<span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a href="/reduce/{{this.item._id}}">Enlever 1 unité du panier</a></li>
+                <li><a href="/remove/{{this.item._id}}">Enlever tout du panier</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="nom">Nom</label>
-        <input type="text" id="nom" name="nom" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="prenom">Prénom</label>
-        <input type="text" id="prenom" name="prenom" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="adresse_livraison">Adresse de livraison</label>
-        <input type="text" id="adresse_livraison" name="adresse_livraison" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="adresse_facturation">Adresse de facturation</label>
-        <input type="text" id="adresse_facturation" name="adresse_facturation" class="form-control">
-      </div>
-
-
-      <button type="submit" class="btn btn-primary">Confirmer la commande</button>
+      {{/each}}
+    </div>
+    <div class="col-md-4 col-md-offset-4">
+      <form action="/order/order" method="post">
+        <div class="form-group">
+          <label for="email">E-Mail  </label>
+          <input type="text" id="email" name="email" class="form-control" value="{{order.user.email}}">
+        </div>
+        <div class="form-group">
+          <label for="nom">Nom</label>
+          <input type="text" id="nom" name="nom" class="form-control" value="{{order.user.nom}}">
+        </div>
+        <div class="form-group">
+          <label for="prenom">Prénom</label>
+          <input type="text" id="prenom" name="prenom" class="form-control" value="{{order.user.prenom}}">
+        </div>
+        <div class="form-group">
+          <label for="adresse_livraison">Adresse de livraison</label>
+          <input type="text" id="adresse_livraison" name="adresse_livraison" class="form-control" value="{{order.user.adresse_livraison}}">
+        </div>
+        <div class="form-group">
+          <label for="adresse_facturation">Adresse de facturation</label>
+          <input type="text" id="adresse_facturation" name="adresse_facturation" class="form-control" value="{{order.user.adresse_facturation}}">
+        </div>
+        <button type="submit" class="btn btn-primary">Confirmer la commande</button>
       </form>
     </div>
   </div>
+  {{else}}
+  <div class="row">
+    <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+      <h2>Le panier est vide</h2>
+    </div>
+  </div>
+  {{/if}}

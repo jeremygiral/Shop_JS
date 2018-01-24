@@ -1,16 +1,16 @@
-devoir s'authifier pour pouvoir voir les produits
-pouvoir ajouter un produit
-avoir un récap de commande avec prix par produit ht ttc et totaux
-faire un extract pdf
-USER CRUD
-Produit CRUD
-Commande CRUD
-produit appartiennent à une entreprise
-créer entreprise
-créer adresse
-finir création order
-devis/ facture/ avoir
-cart <> empty => devis
-order exist => facture/ avoir 
+devoir s'authifier pour pouvoir voir les produits ok
+pouvoir ajouter un produit ok
+avoir un rï¿½cap de commande avec prix par produit ht ttc et totaux ok
+faire un extract pdf ok
+USER CRUD ok
+Produit CRUD ok
+Commande CRUD ok
+produit appartiennent ï¿½ une entreprise ok
+crï¿½er entreprise non
+crï¿½er adresse non
+finir crï¿½ation order ok
+devis/ facture/ avoir ok
+cart <> empty => devis ok
+order exist => facture/ avoir  ok
 
 putain de tests unitaire....

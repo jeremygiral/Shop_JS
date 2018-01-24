@@ -10,7 +10,8 @@ var userSchema = new Schema({
   date_naissance: {type: Date},
   entreprise: {type: String},
   adresse_livraison: {type: String},
-  adresse_facturation: {type: String}
+  adresse_facturation: {type: String},
+  isValable: {type: Boolean, default: true}
 });
 userSchema.pre('save', function (next) {
     this.adresse_facturation = this.get('adresse_livraison');
@@ -20,6 +21,7 @@ userSchema.pre('update', function (next) {
     this.adresse_facturation = this.get('adresse_livraison');
     next();
 });
+
 userSchema.methods.encryptPassword=function(password){
   return bcrypt.hashSync(password,bcrypt.genSaltSync(5),null);
 };

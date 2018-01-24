@@ -8,20 +8,19 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">Shop JS</a>
+      <a class="navbar-brand" href="/">Shop JS  <i class="fa fa-home" aria-hidden="true"></i></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
 
     <ul class="nav navbar-nav navbar-right">
       <li>
-        <a href="/shopping-cart/">
-          {{# if session.cart.totalQty}}
-          <span class="badge pull-right">   {{session.cart.totalQty}}</span>
+        <a href="/panier/">
+          {{# if session.panier.totalQty}}<span class="badge pull-right"> {{session.panier.totalQty}}</span>
           {{else}}
-          <span class="badge pull-right">0</span>
+          <span class="badge pull-right"> 0</span>
           {{/if}}
-          <i class="fa fa-shopping-cart" aria-hidden="true"></i>  Shopping Cart   :</a> </li>
+          <i class="fa fa-shopping-cart" aria-hidden="true"></i>  Mon panier : </a> </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle" aria-hidden="true"></i>  Compte Utilisateur <span class="caret"></span></a>
             <ul class="dropdown-menu">

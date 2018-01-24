@@ -1,4 +1,5 @@
 var mongoose=require('mongoose');
+require('mongoose-money');
 var Schema = mongoose.Schema;
 
 var schema=new Schema({
@@ -7,6 +8,8 @@ var schema=new Schema({
   description: {type: String, required: true},
   price: {type: Number},
   priceHT: {type: Number, required: true},
+  entreprise: {type: String},
+  isValable: {type: Boolean, default: true}
 });
 schema.pre('save', function (next) {
     this.price = 1.2*this.get('priceHT');

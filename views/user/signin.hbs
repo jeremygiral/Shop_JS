@@ -6,7 +6,7 @@
       {{# each messages}}
       <p>{{this}}</p>
       {{/each}}
-    
+
     </div>
     {{/if}}
     <form action="/user/signin" method="post">
@@ -21,5 +21,7 @@
       <input type="hidden" name="_csrf" value="{{csrfToken}}">
       <button type="submit" class="btn btn-primary">Se connecter</button>
     </form>
+  </br>
+    <p>Vous n'avez pas encore de compte ? <a href="/user/signup"> Créez-en un !</a></p>
   </div>
 </div>

@@ -4,7 +4,6 @@ var express = require('express');
 var path = require('path');
 // permet de mettre une icone dans l'onglet
 var favicon = require('serve-favicon');
-
 var logger = require('morgan');
 // permet l'utilisation des cookies
 var cookieParser = require('cookie-parser');
@@ -24,9 +23,13 @@ var session = require('express-session');
 var validator = require('express-validator');
 //pour stocker les tokens et session correctement en base mongo
 var MongoStore=require('connect-mongo')(session);
+//gestion de la creation de pdf
+var fs = require('fs');
 //on charge les fichiers de routes
 var index = require('./routes/index');
 var userRoutes=require('./routes/user');
+var panierRoutes=require('./routes/panier');
+var orderRoutes=require('./routes/order');
 
 //on défini notre server
 var app = express();
@@ -57,8 +60,8 @@ app.use(session({
   secret: 'mysupersecret',
   resave: false,
   saveUninitialized: false,
+  //gestion de l'enregistrement des cookies
   store: new MongoStore({mongooseConnection: mongoose.connection}),
-  //cookie:{maxAge: 180 * 60 * 1000}
   cookie:{maxAge: 180 * 60 * 1000} //180 minutes * 60 seconde * 1000 millisecondes
 }));
 //on peut utilisé flash
@@ -79,6 +82,8 @@ app.use(function(req,res,next){
 //on défini l'utilisation des routes
 //on place les routes les plus "précises" en premier
 app.use('/user', userRoutes);
+app.use('/panier', panierRoutes);
+app.use('/order', orderRoutes);
 app.use('/', index);
 //app.use('/users', users);
 
@@ -88,7 +93,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
 
 // error handler
 app.use(function(err, req, res, next) {
