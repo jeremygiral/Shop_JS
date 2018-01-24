@@ -24,7 +24,12 @@ router.get('/',isLoggedIn, function(req, res, next) {
     res.render('shop/index', { title: 'Shop JS', products: productChunks });
   });
 });
-
+router.get('/produit/:ID', function(req, res, next) {
+  console.log(req.params.ID);
+  Product.findOne({_id: req.params.ID},function(err, produit) {
+    res.render('shop/produit', { produit: produit });
+  });
+});
 
 module.exports = router;
 

@@ -9,6 +9,7 @@ var schema=new Schema({
   price: {type: Number},
   priceHT: {type: Number, required: true},
   entreprise: {type: String},
+  caract_tech:[{type: String}],
   isValable: {type: Boolean, default: true}
 });
 schema.pre('save', function (next) {
