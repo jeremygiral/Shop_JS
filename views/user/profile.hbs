@@ -1,0 +1,111 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <h1>Profil d'utilisateur</h1>
+    <hr>
+    <h2>Mes Commandes :</h2>
+    {{#each orders}}
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <ul class="list-group">
+          {{#each this.items}}
+          <li class="list-group-item">
+            <span class="badge">{{this.price}} €</span>
+            {{this.item.title}} | {{this.qty}} éléments.
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+      <div class="panel-footer">{{this.panier.totalPrice}} €</div>
+    </div>
+      <a href="/order/imprimer/F&{{this._id}}"><button type="button" class="btn btn-success">Facture</button></a>
+      <a href="/order/imprimer/A&{{this._id}}"><button type="button" class="btn btn-success">Avoir</button></a>
+    <!--  <form>
+        <input type="button" href="/order/imprimer/{{this._id}}"  id="impression" class="btn btn-primary" value="Facture" />
+      <input type="button" href="/order/imprimer/{{this._id}}" id="impression" class="btn btn-primary" value="Avoir" />
+    </form>  -->
+  </br>
+</br>
+
+<div  id="{{this._id}}F" style="display: none;" class="impression">
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading"><h4>Commande n° {{this._id}}</h4></div>
+    <table class="table">
+        <tr><th colspan="4" style='text-align:center;'>FACTURE</th></tr>
+    <tr>
+      <th>Produit</th>
+      <th>Quantité</th>
+      <th>Prix Hors Taxe</th>
+      <th>Prix TTC</th>
+    </tr>
+    {{#each this.items}}
+    <tr>
+      <td>{{this.item.title}}</td>
+      <td> {{this.qty}}</td>
+      <td> {{this.priceHT}}</td>
+      <td> {{this.price}}</td>
+    </tr>
+    {{/each}}
+    <tr>
+      <td><strong>Total</strong></td>
+      <td><strong>{{this.panier.totalQty}}</strong></td>
+      <td><strong>{{this.panier.totalPriceHT}} €</strong></td>
+      <td><strong>{{this.panier.totalPrice}} €</strong></td>
+  </table>
+  </div>
+</div>
+<div  id="{{this._id}}A" style="display: none;" class="impression">
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading"><h4>Commande n° {{this._id}}</h4></div>
+    <table class="table">
+        <tr><th colspan="4" style='text-align:center;'>AVOIR</th></tr>
+    <tr>
+      <th>Produit</th>
+      <th>Quantité</th>
+      <th>Prix Hors Taxe</th>
+      <th>Prix TTC</th>
+    </tr>
+    {{#each this.items}}
+    <tr>
+      <td>{{this.item.title}}</td>
+      <td> {{this.qty}}</td>
+      <td> {{this.priceHT}}</td>
+      <td> {{this.price}}</td>
+    </tr>
+    {{/each}}
+    <tr>
+      <td><strong>Total</strong></td>
+      <td><strong>{{this.panier.totalQty}}</strong></td>
+      <td><strong>{{this.panier.totalPriceHT}} €</strong></td>
+      <td><strong>{{this.panier.totalPrice}} €</strong></td>
+  </table>
+  </div>
+</div>
+
+
+{{/each}}
+</div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+function imprimer_page(id){
+  divToPrint = getElementById(id);
+  divToPrint.print();
+}
+function printDiv(divName) {
+  var printContents = document.getElementById(divName).innerHTML;
+  var originalContents = document.body.innerHTML;
+
+  document.body.innerHTML = printContents;
+
+  window.print();
+
+  document.body.innerHTML = originalContents;
+}
+</script>
